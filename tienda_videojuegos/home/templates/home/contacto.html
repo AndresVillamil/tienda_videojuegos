@@ -1,17 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Tienda de Videojuegos</title>
-</head>
-<body>
-    <h1>Contacto</h1>
-    <p>¿Tienes alguna pregunta? ¡Contáctanos!</p>
-</body>
+{% extends 'base.html' %}
+{% load static %}
 
-<footer>
-    <p>&copy; 2024 Tienda de Video Juegos. Todos los derechos reservados.</p>
-    <a href="{% url 'home' %}">Inicio</a>
-</footer>
-</html>
+{% block title %}Contacto - Tienda de Video Juegos{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-body">Contacto</h1>
+    <p class="text-body">¿Tienes alguna pregunta? ¡Contáctanos!</p>
+    <form>
+        <div class="mb-3">
+            <label for="nombre" class="form-label text-body">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label text-body">Correo Electrónico:</label>
+            <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+{% endblock %}

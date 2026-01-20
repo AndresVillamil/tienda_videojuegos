@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Video Juegos</title>
-</head>
-<body>
-    <h1>Bienvenidos a la Tienda de Video Juegos</h1>
-    <p>Explora nuestro catálogo y disfruta de los mejores juegos. </p>
+{% extends 'base.html' %}
+{% load static %}
 
-    <footer>
-        <p>&copy; 2024 Tienda de Video Juegos. Todos los derechos reservados.</p>
-        <a href="{% url 'contacto' %}">Contacto</a>
-    </footer>
-</body>
-</html>
+{% block title %}Inicio - Tienda de Video Juegos{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-body">Bienvenidos a la Tienda de Video Juegos</h1>
+    <p class="text-body">Explora nuestro catálogo y disfruta de los mejores juegos.</p>
+
+    <img src="{% static 'img/logo2.png' %}" alt="logo" class="img-fluid my-6">
+    
+    <div class="alert alert-primary">¡Nueva colección de videjuegos disponibles esta semana!</div>
+    <div class="alert alert-warning">Recuerda revisar las restricciones de edad para algunos títulos</div>
+    <div class="alert alert-danger">Algunos productos tienen stock limitado, ¡apresúrate!</div>
+</div>
+
+{% endblock %}
