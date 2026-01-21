@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Catálogo de Juegos{% endblock %}
+
+{% block content %}
+<h2 class="text-body">Lista de Juegos</h2>
+
+<div class="row row-cols1 row-cols-md-3 g-4 mt-3">
+    {% for juego in lista_juegos %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="{% static 'img/logo2.png' %}" class="card-img-top" alt="imagen generica">
+            <div class="card-body">
+                <h5 class="card-title">{{ juego.nombre }}</h5>
+                <p class="card-text">Plataforma: {{ juego.plataforma }}</p>
+                <p class="card-text">Precio: ${{ juego.precio }} euros</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
