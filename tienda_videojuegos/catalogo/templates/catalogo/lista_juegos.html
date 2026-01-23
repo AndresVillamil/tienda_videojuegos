@@ -11,7 +11,7 @@
     {% for juego in lista_juegos %}
     <div class="col">
         <div class="card h-100">
-            <img src="{% static 'img/logo2.png' %}" class="card-img-top" alt="imagen generica">
+            <img src="{% static 'img/portadas/' %}{{ juego.imagen }}" class="card-img-top" alt="imagen generica">
             <div class="card-body">
                 <h5 class="card-title">{{ juego.nombre }}</h5>
                 <p class="card-text">Plataforma: {{ juego.plataforma }}</p>
@@ -22,5 +22,31 @@
     {% endfor %}
 
 </div>
+
+<!-- Paginación -->
+<nav aria-label="Paginación" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if lista_juegos.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; Primera</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ lista_juegos.previous_page_number }}">Anterior</a>
+            </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">{{ lista_juegos.number }} de {{ lista_juegos.paginator.num_pages }}</span>
+        </li>
+
+        {% if lista_juegos.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ lista_juegos.next_page_number }}">Siguiente</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ lista_juegos.paginator.num_pages }}">Última &raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
 
 {% endblock %}
