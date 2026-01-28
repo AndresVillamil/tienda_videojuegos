@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ juego.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="row g-5 align-items-start">
+
+        <!-- Imagen -->
+        <div class="col-12 col-md-4">
+            <div class="card shadow-sm">
+                <img src="{% static 'img/portadas/' %}{{ juego.imagen }}"
+                     class="detalle-img img-fluid rounded-3"
+                     alt="{{ juego.nombre }}">
+            </div>
+        </div>
+
+        <!-- Información -->
+        <div class="col-12 col-md-8 text-start">
+
+            <h1 class="display-5 fw-bold mb-3 text-body">{{ juego.nombre }}</h1>
+
+            <!-- Rating -->
+            <div class="rating-stars mb-3">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+            </div>
+
+            <!-- Precio -->
+            <h2 class="detalle-precio">€ {{ juego.precio }}</h2>
+            <small class="text-body-secondary">Impuestos incluidos</small>
+
+            <p class="mt-4">
+                <strong>Plataforma:</strong> {{ juego.plataforma }}
+            </p>
+
+            <!-- Botones -->
+            <div class="d-flex flex-column flex-sm-row gap-3 my-4">
+
+                <button class="btn btn-success">
+                    <i class="fas fa-shopping-cart me-2"></i>
+                    Añadir al carrito
+                </button>
+
+                <button class="btn btn-outline-danger btn-favorito active">
+                    <i class="fas fa-heart me-2"></i>
+                    En favoritos
+                </button>
+
+                <a href="{% url 'lista_juegos' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Volver
+                </a>
+
+            </div>
+
+            <!-- Detalles -->
+            <div class="mt-5">
+                <h5 class="fw-semibold mb-3">Descripción</h5>
+
+                {% if juego.descripcion %}
+                <p class="text-body-secondary">{{ juego.descripcion }}</p>
+                {% else %}
+                <p class="text-body-secondary fst-italic">
+                    No hay descripción disponible.
+                </p>
+                {% endif %}
+            </div>
+
+            <!-- Comentarios -->
+            <div class="mt-5">
+                <h5 class="fw-semibold mb-3">Comentarios</h5>
+                <p class="text-body-secondary fst-italic">
+                    Aún no hay comentarios para este juego.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

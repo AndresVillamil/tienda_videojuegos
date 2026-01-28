@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-pc+grt=n0sg7h*tz2z)-=$c=ves^-09otnx3&gkw5)pl0pu9wt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','highlighted-buses-ipod-lindsay.trycloudflare.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','feedback-duncan-travel-replication.trycloudflare.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalogo',
     'home',
+    'buscador',
+    'usuarios'
+    
 ]
 
 MIDDLEWARE = [
@@ -118,3 +122,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'

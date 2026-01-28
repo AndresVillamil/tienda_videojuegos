@@ -6,11 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{% block title %}Tienda de Video Juegos{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Estilos propios -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Font Awesome -->
@@ -22,96 +24,172 @@
 
 <body class="bg-body text-body">
 
+    <!-- ================= HEADER ================= -->
     <header class="shadow-lg">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container d-flex justify-content-between align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container d-flex align-items-center">
 
-            <!-- Botón modo claro/oscuro -->
-            <button id="toggle-theme" class="btn btn-outline-light rounded-circle shadow-sm">
-                <i class="fa-solid fa-circle-half-stroke"></i>
-            </button>
+                <!-- Botón modo claro / oscuro -->
+                <button id="toggle-theme" class="btn btn-outline-light rounded-circle shadow-sm me-3">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </button>
 
-            <!-- Logo -->
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-                <img src="{% static 'img/logo2.png' %}" alt="Logo" width="50" height="50">
-                <span class="fw-bold text-white ms-2">ENSIGNA</span>
-            </a>
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                    <img src="{% static 'img/logo2.png' %}" alt="Logo" width="45" height="45">
+                    <span class="fw-bold text-white ms-2">ENSIGNA</span>
+                </a>
 
-            <!-- Botón colapsable (móvil) -->
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarPF"
-                    aria-controls="navbarPF"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <!-- Botón colapsable -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarPF" aria-controls="navbarPF"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <!-- Contenido colapsable -->
-            <div class="collapse navbar-collapse" id="navbarPF">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link {% if '/catalogo/' in request.path %}active{% endif %}" href="{% url 'lista_juegos' %}">Catalogo</a></li>
-                    <li class="nav-item"><a class="nav-link {% if '/noticias/' in request.path %}active{% endif %}" href="#">Noticias</a></li>
-                    <li class="nav-item"><a class="nav-link {% if '/contacto/' in request.path %}active{% endif %}" href="{% url 'contacto' %}">Contacto</a></li>
-                </ul>
+                <!-- Contenido colapsable -->
+                <div class="collapse navbar-collapse" id="navbarPF">
 
-                <!-- Búsqueda -->
-                <form class="d-flex me-3" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar...">
-                    <button class="btn btn-outline-info" type="submit">Buscar</button>
-                </form>
+                    <!-- Menú principal -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/' %}active{% endif %}"
+                               href="{% url 'home' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if '/catalogo/' in request.path %}active{% endif %}"
+                               href="{% url 'lista_juegos' %}">Catálogo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Noticias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if '/contacto/' in request.path %}active{% endif %}"
+                               href="{% url 'contacto' %}">Contacto</a>
+                        </li>
+                    </ul>
+
+                    <!-- Buscador -->
+                    <form class="d-flex me-3" role="search"
+                          action="{% url 'buscar_juegos' %}"
+                          method="get">
+                        <input class="form-control me-2"
+                               type="search"
+                               name="q"
+                               placeholder="Buscar..."
+                               value="{{ request.GET.q|default:'' }}">
+                        <button class="btn btn-outline-info" type="submit">Buscar</button>
+                    </form>
+
+                    <!-- Usuario / Login -->
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center"
+                               href="#"
+                               id="userDropdown"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+
+                                <div class="rounded-circle overflow-hidden me-2"
+                                     style="width:32px;height:32px;">
+                                    <img src="{% static 'img/avatars/default.webp' %}"
+                                         alt="Avatar"
+                                         class="w-100 h-100"
+                                         style="object-fit:cover;">
+                                </div>
+
+                                {{ user.username }}
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end shadow">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'perfil' %}">
+                                        <i class="fas fa-user me-2"></i> Mi perfil
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-heart me-2"></i> Favoritos
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">
+                                <i class="fas fa-sign-in-alt me-1"></i> Iniciar sesión
+                            </a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-outline-info" href="{% url 'registro' %}">
+                                <i class="fas fa-user-plus me-1"></i> Registrarse
+                            </a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+
+                </div>
             </div>
+        </nav>
+    </header>
 
-        </div>
-    </nav>
-</header>
+    <!-- Espaciador navbar fixed -->
+    <div style="height:72px;"></div>
 
-<!-- Espaciador obligatorio para navbar fixed -->
-<div style="height: 72px;"></div>
-
-    <main class="py-5 bg-body-secundary text-center text-dark">
+    <!-- ================= MAIN ================= -->
+    <main class="py-5 bg-body-secondary text-center">
         <div class="container">
             {% block content %}
             <h2 class="text-body">Tu tienda de confianza</h2>
             {% endblock %}
         </div>
-
     </main>
 
-
+    <!-- ================= FOOTER ================= -->
     <footer class="bg-dark text-white pt-4 pb-2 mt-5">
-
         <div class="container">
             <div class="row small">
+
                 <div class="col-md-4 mb-3">
                     <h6 class="text-uppercase">Sobre nosotros</h6>
-                    <p class="mb-1">La tienda de videojuegos más confiable del mercado.</p>
+                    <p>La tienda de videojuegos más confiable del mercado.</p>
                 </div>
+
                 <div class="col-md-4 mb-3">
-                    <h6 class="text-uppercase">Enlaces útiles</h6>
-                    <ul>
+                    <h6 class="text-uppercase">Enlaces</h6>
+                    <ul class="list-unstyled">
                         <li><a href="{% url 'home' %}" class="text-white text-decoration-none">Inicio</a></li>
                         <li><a href="#" class="text-white text-decoration-none">Noticias</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Comunidad</a></li>
                         <li><a href="{% url 'contacto' %}" class="text-white text-decoration-none">Contacto</a></li>
                         <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
                     </ul>
                 </div>
+
                 <div class="col-md-4 mb-3">
                     <h6 class="text-uppercase">Síguenos</h6>
                     <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
                     <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
                     <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
                     <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+
             </div>
         </div>
-
     </footer>
 
-    <!-- Bootstrap JS (IMPRESCINDIBLE para collapse) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>
