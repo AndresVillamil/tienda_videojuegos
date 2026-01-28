@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Resultados de búsqueda{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-body">Resultados para "{{ query }}"</h2>
+
+{% if lista_juegos %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+    {% for juego in lista_juegos %}
+    <div class="col">
+        <a href="{% url 'detalle_juego' juego.pk %}" class="text-decoration-none text-dark">
+            <div class="card h-100 shadow-sm juego-card">
+
+                <img src="{% static 'img/portadas/' %}{{ juego.imagen }}"
+                     class="card-img-top"
+                     alt="{{ juego.nombre }}">
+
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ juego.nombre }}</h5>
+                    <p class="card-text">{{ juego.plataforma }}</p>
+                    <p class="card-text fw-bold">€ {{ juego.precio }}</p>
+
+                    <span class="btn btn-outline-primary mt-auto disabled">
+                        Ver detalles
+                    </span>
+                </div>
+
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+
+</div>
+
+<!-- Paginación -->
+<nav aria-label="Paginación" class="mt-4">
+    <ul class="pagination justify-content-center">
+
+        {% if lista_juegos.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?q={{ query }}&page=1">&laquo; Primera</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?q={{ query }}&page={{ lista_juegos.previous_page_number }}">
+                Anterior
+            </a>
+        </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">
+                {{ lista_juegos.number }} de {{ lista_juegos.paginator.num_pages }}
+            </span>
+        </li>
+
+        {% if lista_juegos.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?q={{ query }}&page={{ lista_juegos.next_page_number }}">
+                Siguiente
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?q={{ query }}&page={{ lista_juegos.paginator.num_pages }}">
+                Última &raquo;
+            </a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+{% else %}
+<p class="text-body">No se encontraron juegos que coincidan con tu búsqueda.</p>
+{% endif %}
+{% endblock %}

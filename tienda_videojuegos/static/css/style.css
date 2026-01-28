@@ -1,0 +1,191 @@
+/* =========================
+   Variables (tema visual)
+   ========================= */
+:root {
+    --brand-primary: #0d6efd;
+    --brand-success: #198754;
+    --brand-danger: #dc3545;
+    --card-radius: 0.75rem;
+    --transition-fast: 0.2s ease-in-out;
+}
+
+/* =========================
+   Branding / Logo
+   ========================= */
+.navbar-brand span {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,.6);
+}
+
+/* =========================
+   Navbar / Header
+   ========================= */
+header {
+    z-index: 1030;
+}
+
+.navbar {
+    backdrop-filter: blur(6px);
+}
+
+.navbar .nav-link.active {
+    font-weight: 600;
+    color: #0dcaf0 !important;
+}
+
+/* =========================
+   Botón modo claro / oscuro
+   ========================= */
+#toggle-theme {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+   Main
+   ========================= */
+main {
+    min-height: 65vh;
+}
+
+/* =========================
+   Footer
+   ========================= */
+footer {
+    font-size: 0.875rem;
+}
+
+footer ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+footer ul li {
+    margin-bottom: 0.25rem;
+}
+
+/* =========================
+   Cards generales
+   ========================= */
+.card {
+    border-radius: var(--card-radius);
+    overflow: hidden;
+}
+
+.card-img-top {
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+}
+
+/* =========================
+   Catálogo / Resultados
+   ========================= */
+.juego-card {
+    transition: transform var(--transition-fast),
+                box-shadow var(--transition-fast);
+    cursor: pointer;
+}
+
+.juego-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+/* Imagen hover */
+.juego-card img {
+    transition: transform 0.3s ease;
+}
+
+.juego-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Precio */
+.card-body .fw-bold,
+.card-body .card-text.fw-bold {
+    color: var(--brand-success);
+}
+
+/* =========================
+   Paginación
+   ========================= */
+.pagination .page-link {
+    border-radius: 0.5rem;
+}
+
+.pagination .active .page-link {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+}
+
+/* =========================
+   Detalle del juego
+   ========================= */
+.detalle-img {
+    max-height: 520px;
+    object-fit: cover;
+}
+
+/* Precio destacado */
+.detalle-precio {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--brand-success);
+}
+
+/* =========================
+   Botones detalle
+   ========================= */
+.btn-success,
+.btn-outline-danger,
+.btn-outline-secondary {
+    transition: transform var(--transition-fast),
+                box-shadow var(--transition-fast);
+}
+
+.btn-success:hover,
+.btn-outline-danger:hover,
+.btn-outline-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,.15);
+}
+
+/* =========================
+   Rating estrellas
+   ========================= */
+.rating-stars i {
+    color: #ffc107;
+    margin-right: 2px;
+}
+
+/* =========================
+   Favoritos
+   ========================= */
+.btn-favorito.active {
+    background-color: var(--brand-danger);
+    color: #fff;
+}
+
+/* =========================
+   Textos secundarios
+   ========================= */
+.text-body-secundary {
+    opacity: 0.75;
+}
+
+/* =========================
+   Responsive tweaks
+   ========================= */
+@media (max-width: 768px) {
+    .detalle-img {
+        max-height: 380px;
+    }
+
+    h1.display-5 {
+        font-size: 2rem;
+    }
+}
