@@ -11,7 +11,7 @@
 
     {% for juego in lista_juegos %}
     <div class="col">
-        <a href="{% url 'detalle_juego' juego.pk %}" class="text-decoration-none text-dark">
+        <a href="{% url 'catalogo:detalle_juego' juego.pk %}" class="text-decoration-none text-dark">
             <div class="card h-100 shadow-sm juego-card">
 
                 <img src="{% static 'img/portadas/' %}{{ juego.imagen }}"

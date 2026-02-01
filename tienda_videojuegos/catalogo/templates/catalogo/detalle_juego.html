@@ -11,9 +11,8 @@
         <!-- Imagen -->
         <div class="col-12 col-md-4">
             <div class="card shadow-sm">
-                <img src="{% static 'img/portadas/' %}{{ juego.imagen }}"
-                     class="detalle-img img-fluid rounded-3"
-                     alt="{{ juego.nombre }}">
+                <img src="{% static 'img/portadas/' %}{{ juego.imagen }}" class="detalle-img img-fluid rounded-3"
+                    alt="{{ juego.nombre }}">
             </div>
         </div>
 
@@ -41,18 +40,18 @@
 
             <!-- Botones -->
             <div class="d-flex flex-column flex-sm-row gap-3 my-4">
-
-                <button class="btn btn-success">
+                <a href="{% url 'carrito:agregar' juego.id %}" class="btn btn-success">
+                    <!--<button class="btn btn-success">-->
                     <i class="fas fa-shopping-cart me-2"></i>
                     Añadir al carrito
-                </button>
-
+                    <!--</button>-->
+                </a>
                 <button class="btn btn-outline-danger btn-favorito active">
                     <i class="fas fa-heart me-2"></i>
                     En favoritos
                 </button>
 
-                <a href="{% url 'lista_juegos' %}" class="btn btn-outline-secondary">
+                <a href="{% url 'catalogo:lista_juegos' %}" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left me-2"></i>
                     Volver
                 </a>

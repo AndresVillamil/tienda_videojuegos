@@ -189,3 +189,158 @@ footer ul li {
         font-size: 2rem;
     }
 }
+
+/* =========================
+   General
+   ========================= */
+
+.table{
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.75rem;
+
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(var(--bs-body-color-rgb), 0.02);
+}
+
+/* =========================
+   Escritorio carrito
+   ========================= */
+
+@media (min-width: 769px) {
+    .carrito-table-warp .table {
+        border-radius: 0.75;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    .carrito-row {
+        border-top: 1px solid rgba(0,0,0,0.04);
+    }
+}
+    
+/* =========================
+   Móvil carrito
+   ========================= */
+
+   @media (max-width: 768px) {
+    .table thead{
+        display: none;
+    }
+
+    .table tbody tr{
+        display: block;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        border-radius: 0.75rem;
+        overflow: hidden;
+    }
+
+    .table tbody tr td{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+    }
+    
+   }
+
+   .cart-badge {
+    animation: pop 0.3s ease-in-out;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* HERO */
+.hero-section {
+    min-height: 70vh;
+    background: radial-gradient(
+        circle at top left,
+        #2b2f36,
+        #1c1f26
+    );
+    padding: 4rem 0;
+}
+
+/* Logo principal */
+.hero-logo {
+    max-width: 320px;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,.6));
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Animación suave */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* GAME CARD */
+.game-card {
+    background: linear-gradient(180deg, #1f2229, #15171c);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all .3s ease;
+}
+
+.game-card img {
+    height: 220px;
+    object-fit: cover;
+}
+
+.game-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 255, 255, 0.15);
+    border-color: rgba(0, 255, 255, 0.4);
+}
+
+/* CAROUSEL GAMER */
+.carousel-game {
+    height: 420px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.carousel-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,.85),
+        rgba(0,0,0,.2)
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    color: #fff;
+}
+
+.carousel-overlay h3 {
+    font-size: 2.2rem;
+}

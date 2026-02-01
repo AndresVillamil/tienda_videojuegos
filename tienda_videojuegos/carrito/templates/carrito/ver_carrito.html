@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tu Carrito{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-body">
+
+    <h1 class="mb-4 text-start fw-bold">
+        <i class="fas fa-shopping-cart me-2"></i>
+        Tu Carrito
+    </h1>
+
+    {% if items %}
+    <div class="table-responsive rounded-3 mb-4 carrito-table-warp">
+        <table class="table table-sm align-middle shadow-sm border bg-body text-body mb-0">
+            <thead class="table-light border-bottom">
+                <tr>
+                    <th scope="col">Juego</th>
+                    <th scope="col" class="text-center">Plataforma</th>
+                    <th scope="col" class="text-center">Precio</th>
+                    <th scope="col" class="text-center">Cantidad</th>
+                    <th scope="col" class="text-center">Subtotal</th>
+                    <th scope="col" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr class="carrito-row">
+                    <td data-label="Juego" class="d-flex align-items-center gap-3 text-start">
+                        <img src="{% static 'img/portadas/' %}{{ item.juego.imagen }}" alt="{{ item.juego.nombre }}"
+                            class="rounded shadow-sm carrito-thumb"
+                            style="width: 70px; height: 78px; object-fit: cover;">
+                        <span class="fw-semibold">{{ item.juego.nombre }}</span>
+                    </td>
+
+                    <td data-label="Plataforma" class="text-center">
+                        {{ item.juego.plataforma }}
+                    </td>
+
+                    <td data-label="Precio" class="text-center">
+                        ${{ item.juego.precio }}
+                    </td>
+
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center align-items-center gap-2">
+
+                            <a href="{% url 'carrito:quitar' item.juego.id %}" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-minus"></i>
+                            </a>
+
+                            <span class="fw-bold">{{ item.cantidad }}</span>
+
+                            <a href="{% url 'carrito:agregar' item.juego.id %}"
+                                class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-plus"></i>
+                            </a>
+
+                        </div>
+                    </td>
+
+                    <td data-label="Subtotal" class="text-center">
+                        ${{ item.subtotal }}
+                    </td>
+
+                    <td class="text-center">
+                        <a href="{% url 'carrito:eliminar_item' item.id %}" class="btn btn-danger btn-sm">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Total y acciones -->
+    <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mt-4 p-3 bg-body-secondary rounded-3 shadow-sm main-cart-card">
+
+        <h4 class="fw-bold text-success mb-0">
+            Total: ${{ total }}
+        </h4>
+
+        <div class="d-flex flex-wrap justify-content-center justify-content-md-end gap-2">
+            <a href="{% url 'carrito:limpiar' %}" class="btn btn-outline-danger rounded-pill">
+                <i class="fas fa-trash-alt me-2"></i>
+                Vaciar Carrito
+            </a>
+
+            <a href="#" class="btn btn-success rounded-pill px-3">
+                <i class="fas fa-credit-card me-2"></i>
+                Finalizar Compra
+            </a>
+        </div>
+
+        <div>
+            <a href="{% url 'catalogo:lista_juegos' %}" class="btn btn-secondary btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>
+                Seguir Comprando
+            </a>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="alert alert-info bg-body-secondary text-body py-5 text-center shadow-sm border rounded" role="alert">
+        <h4 class="mb-3">
+            <i class="fas fa-shopping-cart me-2"></i>
+            Tu carrito está vacío.
+        </h4>
+
+        <a href="{% url 'catalogo:lista_juegos' %}" class="btn btn-primary rounded-pill mt-2">
+            <i class="fas fa-gamepad me-2"></i>
+            ¡Explora nuestra tienda y agrega algunos videojuegos!
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
